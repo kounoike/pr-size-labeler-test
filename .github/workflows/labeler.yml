@@ -1,0 +1,31 @@
+name: labeler
+
+on: [pull_request]
+
+jobs:
+  labeler:
+    runs-on: ubuntu-latest
+    name: Label the PR size
+    steps:
+      - uses: actions/checkout@v4
+      - uses: kounoike/pr-size-labeler@main
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          xs_label: "size/xs"
+          xs_max_size: "10"
+          s_label: "size/s"
+          s_max_size: "100"
+          m_label: "size/m"
+          m_max_size: "500"
+          l_label: "size/l"
+          l_max_size: "1000"
+          xl_label: "size/xl"
+          fail_if_xl: "false"
+          message_if_xl: ""
+          files_to_ignore: |
+            ".*_test.go"
+            ".*_mock.go"
+            "go.sum"
+            "yarn.lock"
+            "pnpm-lock.yaml"
+            ".test.ts"
